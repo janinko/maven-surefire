@@ -136,7 +136,11 @@ public class JUnitCoreProvider
         org.junit.runner.notification.RunListener jUnit4RunListener = new JUnitCoreRunListener( listener, testSetMap );
         customRunListeners.add( 0, jUnit4RunListener );
 
-        JUnitCoreWrapper.execute( testsToRun, jUnitCoreParameters, customRunListeners, filter );
+		if(Boolean.toString(true).equals(providerParameters.getProviderProperties().get("dryrun"))){
+			JUnitCoreWrapper.dryRun( testsToRun, jUnitCoreParameters, filter );
+		}else{
+			JUnitCoreWrapper.execute( testsToRun, jUnitCoreParameters, customRunListeners, filter );
+		}
         return reporterFactory.close();
     }
 

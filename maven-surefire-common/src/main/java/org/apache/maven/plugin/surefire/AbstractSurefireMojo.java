@@ -550,6 +550,12 @@ public abstract class AbstractSurefireMojo
     protected String runOrder;
 
     /**
+     * Do not run test, just print runned
+     */
+    @Parameter( property = "test.dryrun", defaultValue = "false" )
+    protected boolean dryrun;
+
+    /**
      *
      */
     @Component
@@ -863,6 +869,7 @@ public abstract class AbstractSurefireMojo
         }
         getProperties().setProperty( "perCoreThreadCount", Boolean.toString( getPerCoreThreadCount() ) );
         getProperties().setProperty( "useUnlimitedThreads", Boolean.toString( getUseUnlimitedThreads() ) );
+        getProperties().setProperty( "dryrun", Boolean.toString( isDryrun() ) );
     }
 
     private boolean isJunit47Compatible( Artifact artifact )
@@ -2332,6 +2339,17 @@ public abstract class AbstractSurefireMojo
     public void setTestSourceDirectory( File testSourceDirectory )
     {
         this.testSourceDirectory = testSourceDirectory;
+    }
+
+
+    public boolean isDryrun()
+    {
+        return dryrun;
+    }
+
+    public void setDryrun( boolean dryrun )
+    {
+        this.dryrun = dryrun;
     }
 
 }

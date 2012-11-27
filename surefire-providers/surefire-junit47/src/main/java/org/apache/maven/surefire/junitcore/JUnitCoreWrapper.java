@@ -26,6 +26,7 @@ import org.apache.maven.surefire.testset.TestSetFailedException;
 import org.apache.maven.surefire.util.TestsToRun;
 
 import org.junit.runner.Computer;
+import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Request;
 import org.junit.runner.Result;
@@ -71,6 +72,30 @@ class JUnitCoreWrapper
             }
         }
     }
+
+	public static void dryRun( TestsToRun testsToRun, JUnitCoreParameters jUnitCoreParameters,
+                               Filter filter ) throws TestSetFailedException
+    {
+        Computer computer = getComputer( jUnitCoreParameters );
+
+        Request req = Request.classes( computer, testsToRun.getLocatedClasses() );
+        if ( filter != null )
+        {
+            req = req.filterWith( filter );
+        }
+
+		printDesc(req.getRunner().getDescription(),0);
+    }
+	
+	private static void printDesc(Description description,int depth) {
+		for(int i=0; i<depth; i++)System.out.print(" ");
+		System.out.print(description.getDisplayName());
+		System.out.print(" : ");
+		System.out.println(description.getChildren().size());
+		for(Description d : description.getChildren()){
+			printDesc(d,depth+1);
+		}
+	}
 
     private static void closeIfConfigurable( Computer computer )
         throws TestSetFailedException
