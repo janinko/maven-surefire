@@ -550,9 +550,9 @@ public abstract class AbstractSurefireMojo
     protected String runOrder;
 
     /**
-     * Do not run test, just print runned
+     * Do not run test, just print them
      */
-    @Parameter( property = "test.dryrun", defaultValue = "false" )
+    @Parameter( property = "test.dryRun", defaultValue = "false" )
     protected boolean dryrun;
 
     /**
