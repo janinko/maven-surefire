@@ -73,7 +73,7 @@ class JUnitCoreWrapper
         }
     }
 
-	public static void dryRun( TestsToRun testsToRun, JUnitCoreParameters jUnitCoreParameters,
+    public static void dryRun( TestsToRun testsToRun, JUnitCoreParameters jUnitCoreParameters,
                                Filter filter ) throws TestSetFailedException
     {
         Computer computer = getComputer( jUnitCoreParameters );
@@ -84,18 +84,18 @@ class JUnitCoreWrapper
             req = req.filterWith( filter );
         }
 
-		printDesc(req.getRunner().getDescription(),0);
+        printDesc(req.getRunner().getDescription(),0);
     }
-	
-	private static void printDesc(Description description,int depth) {
-		for(int i=0; i<depth; i++)System.out.print(" ");
-		System.out.print(description.getDisplayName());
-		System.out.print(" : ");
-		System.out.println(description.getChildren().size());
-		for(Description d : description.getChildren()){
-			printDesc(d,depth+1);
-		}
-	}
+
+    private static void printDesc(Description description,int depth) {
+        for(int i=0; i<depth; i++)System.out.print(" ");
+        System.out.print(description.getDisplayName());
+        System.out.print(" : ");
+        System.out.println(description.getChildren().size());
+        for(Description d : description.getChildren()){
+            printDesc(d,depth+1);
+        }
+    }
 
     private static void closeIfConfigurable( Computer computer )
         throws TestSetFailedException
